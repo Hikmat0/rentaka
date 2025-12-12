@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://213.172.84.59:5433/rentaka
+    username: postgres
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

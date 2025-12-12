@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: University Inventory Rental API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+  /api/users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: List of users
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+      responses:
+        '201':
+          description: User created
+
+  /api/users/{id}:
+    get:
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: OK }
+        '404': { description: Not found }
+
+  /api/groups:
+    get:
+      summary: Get all groups
+      responses:
+        '200': { description: OK }
+
+  /api/inventory:
+    get:
+      summary: Get all inventory items
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Add a new inventory item
+      requestBody:
+        required: true
+      responses:
+        '201':
+          description: Item created
+
+  /api/inventory/{id}/count:
+    get:
+      summary: Get available / rented count for AJAX
+      parameters:
+        - in: path
+          name: id
+          schema: { type: integer }
+          required: true
+      responses:
+        '200': { description: OK }
+
+  /api/rentals:
+    get:
+      summary: Get all rentals
+      parameters:
+        - in: query
+          name: search
+          schema: { type: string }
+        - in: query
+          name: status
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+
+    post:
+      summary: Create a rental
+      requestBody:
+        required: true
+      responses:
+        '201': { description: Rental created }
+
+  /api/rentals/{id}/return:
+    post:
+      summary: Return a rental item
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Returned }
+        '400': { description: Already returned }
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: integer }
+        firstName: { type: string }
+        lastName: { type: string }
+        groupId: { type: integer }
+        isValid: { type: boolean }
+
+    Inventory:
+      type: object
+      properties:
+        id: { type: integer }
+        itemName: { type: string }
+        description: { type: string }
+        quantity: { type: integer }
+
+    Rental:
+      type: object
+      properties:
+        id: { type: integer }
+        userId: { type: integer }
+        itemId: { type: integer }
+        room: { type: integer }
+        rentDate: { type: string, format: date-time }
+        returnDate: { type: string, format: date-time }
+
