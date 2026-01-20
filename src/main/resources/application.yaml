@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://213.172.84.59:5433/rentaka
-    username: postgres
-    password: admin
+    url: jdbc:postgresql://$IP/$DB
+    username: $USER_NAME
+    password: $PASSWORD
 
   jpa:
     hibernate:
